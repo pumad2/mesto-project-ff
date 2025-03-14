@@ -23,6 +23,8 @@ const placeInput = formAddCard.elements['place-name'];
 const imageInput = formAddCard.elements.link;
 
 const cardImageModal = document.querySelector('.popup_type_image');
+const popupImage = document.querySelector('.popup__image');
+const imageCaption = document.querySelector('.popup__caption');
 
 initialCards.forEach(function (item) {
     cardsContainer.append(createCard (item, deleteCard, likeCard, openImage));
@@ -53,23 +55,24 @@ formEditProfile.addEventListener('submit', handleEditProfileFormSubmit);
 function handleAddCardFormSubmit(evt) {
     evt.preventDefault();
 
-    const newCard = {};
-    newCard.name = placeInput.value;
-    newCard.link = imageInput.value;
+    const newCard = {
+        name: placeInput.value,
+        link: imageInput.value
+    };
 
     cardsContainer.prepend(createCard (newCard, deleteCard, likeCard, openImage));
 
-    placeInput.value = '';
-    imageInput.value = '';
+    formAddCard.reset();
 
     closeModal(modalAddCard);
 };
 
 formAddCard.addEventListener('submit', handleAddCardFormSubmit);
 
-function openImage(evt) {
-    const popupImage = document.querySelector('.popup__image');
-    popupImage.src = evt.target.src;
-    popupImage.alt = evt.target.alt;
+function openImage(cardData) {
+    popupImage.src = cardData.link;
+    popupImage.alt = cardData.name;
+    imageCaption.textContent = cardData.name;
+
     openModal(cardImageModal);
 };

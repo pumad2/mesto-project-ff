@@ -1,11 +1,10 @@
 const modalArray = Array.from(document.querySelectorAll('.popup'));
 
-function closeWithEsc(item) {
-    document.addEventListener('keydown', function(evt) { 
-        if (evt.key === 'Escape') {
-        closeModal(item);
+function closeWithEsc(evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        closeModal(openedPopup);
     };
-});
 };
 
 modalArray.forEach(function(item) {
@@ -18,10 +17,10 @@ modalArray.forEach(function(item) {
 
 export function openModal(modalElement) {
     modalElement.classList.add('popup_is-opened');
-    document.addEventListener('keydown', closeWithEsc(modalElement));
+    document.addEventListener('keydown', closeWithEsc);
 };
 
 export function closeModal(modalElement) {
     modalElement.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', closeWithEsc(modalElement));
+    document.removeEventListener('keydown', closeWithEsc);
 };
