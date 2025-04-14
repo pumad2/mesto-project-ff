@@ -40,18 +40,19 @@ export function deleteCard (cardElement, cardId) {
 };
 
 export function likeCard(evt, cardId, likeNumber) {
-    evt.classList.toggle('card__like-button_is-active');
     if (evt.classList.contains('card__like-button_is-active')) {
-        putLikeApi(cardId)
+        removeLikeApi(cardId)
         .then((card) => {
+            evt.classList.toggle('card__like-button_is-active');
             likeNumber.textContent = card.likes.length;
         })
         .catch((err) => {
             console.log(err);
         });
     } else {
-        removeLikeApi(cardId)
+        putLikeApi(cardId)
         .then((card) => {
+            evt.classList.toggle('card__like-button_is-active');
             likeNumber.textContent = card.likes.length;
         })
         .catch((err) => {

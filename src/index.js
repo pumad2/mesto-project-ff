@@ -1,6 +1,6 @@
 import './index.css';
 import { createCard, deleteCard, likeCard } from './components/card';
-import { openModal, closeModal } from './components/modal';
+import { openModal, closeModal, closeByOverlay } from './components/modal';
 import { enableValidation, clearValidation } from './components/validation';
 import { getUserInfoApi, getCardsApi, editProfileApi, addNewCardApi, editAvatarApi } from './components/api';
 
@@ -35,6 +35,8 @@ const modalEditAvatar = document.querySelector('.popup_type_edit-avatar');
 const formEditAvatar = document.forms['new-avatar'];
 const avatarInput = formEditAvatar.elements['avatar-url'];
 const formEditAvatarButton = formEditAvatar.querySelector('.popup__button');
+
+const modalArray = Array.from(document.querySelectorAll('.popup'));
 
 const validationConfig = {
     formSelector: '.popup__form',
@@ -178,5 +180,7 @@ function handleEditAvatarFormSubmit(evt) {
 };
 
 formEditAvatar.addEventListener('submit', handleEditAvatarFormSubmit);
+
+closeByOverlay(modalArray);
 
 enableValidation(validationConfig);
